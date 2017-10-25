@@ -52,7 +52,7 @@ class Server
         if (!function_exists('imap_open')) {
             throw new \RuntimeException('IMAP extension must be enabled');
         }
-        
+
         $this->hostname = $hostname;
         $this->port = $port;
         $this->flags = $flags ? '/' . ltrim($flags, '/') : '';
@@ -70,27 +70,31 @@ class Server
      */
     public function authenticate($username, $password)
     {
+        $errorMessage = null;
+        $errorNumber  = 0;
+
         // Wrap imap_open, which gives notices instead of exceptions
         set_error_handler(
-            function ($nr, $message) use ($username) {
-                throw new AuthenticationFailedException($username, $message);
+            function ($nr, $message) use (&$errorMessage, &$errorNumber) {
+                $errorMessage = $message;
+                $errorNumber  = $nr;
             }
         );
-        
+
         $resource = imap_open(
             $this->getServerString(),
             $username,
             $password,
-            null,
+            0,
             1,
             $this->parameters
         );
 
-        if (false === $resource) {
+        restore_error_handler();
+
+        if (false === $resource || null !== $errorMessage) {
             throw new AuthenticationFailedException($username);
         }
-        
-        restore_error_handler();
 
         $check = imap_check($resource);
         $mailbox = $check->Mailbox;
