@@ -1,5 +1,5 @@
 {
-    "name": "ddeboer/imap",
+    "name": "irvint/imap",
     "description": "Object-oriented IMAP for PHP",
     "keywords": [ "email", "mail", "imap" ],
     "license": "MIT",
@@ -10,13 +10,13 @@
         },
         {
             "name": "Community contributors",
-            "homepage": "https://github.com/ddeboer/imap/graphs/contributors"
-        }   
+            "homepage": "https://github.com/irvint/imap/graphs/contributors"
+        }
     ],
     "require": {
         "php": ">=5.4.0",
         "ext-imap": "*",
-        "ddeboer/transcoder": "~1"
+        "irvint/transcoder": "~1"
     },
     "require-dev": {
         "ext-mbstring": "*",
