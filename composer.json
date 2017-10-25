@@ -16,7 +16,7 @@
     "require": {
         "php": ">=5.4.0",
         "ext-imap": "*",
-        "irvint/transcoder": "~1"
+        "ddeboer/transcoder": "~1"
     },
     "require-dev": {
         "ext-mbstring": "*",
